@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Baris ke Tabel</title>
+    <style>
+        table {
+            width: 50%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Menambahkan Baris ke Tabel</h2>
+    <form action="">
+
+    </form>
+
+    <!-- Input untuk Data -->
+    <label for="name">Nama:</label>
+    <input type="text" id="name" placeholder="Masukkan nama" required>
+    <label for="age">Usia:</label>
+    <input type="number" id="age" placeholder="Masukkan usia" required>
+    <button onclick="addRow()">Tambah Baris</button>
+
+    <!-- Tabel -->
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Usia</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Isi tabel akan bertambah di sini -->
+        </tbody>
+    </table>
+
+    <script>
+        let rowCount = 0; // Menghitung jumlah baris untuk nomor urut
+
+        // Function untuk Menambahkan Baris ke Tabel
+        function addRow() {
+            const table = document.getElementById("myTable").getElementsByTagName("tbody")[0];
+
+            // Ambil input dari user
+            const name = document.getElementById("name").value;
+            const age = document.getElementById("age").value;
+
+            // Validasi input
+            if (!name || !age) {
+                alert("Harap masukkan nama dan usia!");
+                return;
+            }
+
+            // Tambah nomor urut
+            rowCount++;
+
+            // Buat baris baru
+            const newRow = table.insertRow();
+
+            // Tambahkan sel (kolom) ke baris
+            const cell1 = newRow.insertCell(0); // Kolom No
+            const cell2 = newRow.insertCell(1); // Kolom Nama
+            const cell3 = newRow.insertCell(2); // Kolom Usia
+            const cell4 = newRow.insertCell(3); // Kolom Aksi (Hapus)
+
+            // Isi sel dengan data
+            cell1.innerHTML = rowCount; // No
+            cell2.innerHTML = name;     // Nama
+            cell3.innerHTML = age;      // Usia
+            cell4.innerHTML = `<button onclick="deleteRow(this)">Hapus</button>`; // Tombol Hapus
+
+            // Kosongkan input setelah menambahkan baris
+            document.getElementById("name").value = "";
+            document.getElementById("age").value = "";
+        }
+
+        // Function untuk Menghapus Baris
+        function deleteRow(button) {
+            const row = button.parentNode.parentNode; // Ambil baris yang berisi tombol
+            row.parentNode.removeChild(row); // Hapus baris dari tabel
+        }
+    </script>
+</body>
+</html>
